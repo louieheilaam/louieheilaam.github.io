@@ -1,1 +1,151 @@
 
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 學韓文像談戀愛</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+    
+    .card {
+      background: rgba(30, 27, 75, 0.85);
+      border: 2px solid #ff79c6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-12px) scale(1.03);
+      border-color: #22d3ee;
+      box-shadow: 0 0 40px rgba(255,121,198,0.6), 0 0 60px rgba(34,211,238,0.4);
+    }
+    
+    .hangul {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #ff79c6;
+      text-shadow: 0 0 15px #ff79c6, 0 0 30px #c026d3;
+    }
+    
+    .glow-btn {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 30px #22d3ee, 0 0 50px #ff79c6;
+      transform: scale(1.08);
+    }
+    
+    .floating-heart {
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-25px); }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar - using your real links -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">💕</span>
+        <h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1>
+      </div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="#home" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="hover:text-cyan-400 transition-colors">即時練習</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/ByLGdMz" target="_blank" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/MYjzvLr" target="_blank" class="hover:text-pink-400 transition-colors">使用方法</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/RNGqZdw" target="_blank" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/WbGYEmp" target="_blank" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank"
+         class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2">
+        <i class="fas fa-play"></i> 立即練習
+      </a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="min-h-screen flex items-center justify-center relative pt-20">
+    <div class="absolute inset-0 bg-[radial-gradient(at_center,#ff79c640_0%,transparent_70%)]"></div>
+    
+    <div class="text-center z-10 px-6 max-w-5xl">
+      <p class="text-7xl mb-8 floating-heart">💕🤖</p>
+      <h1 class="text-7xl md:text-8xl font-black neon-pink leading-none mb-6">
+        學韓文<br>像談場韓國戀愛
+      </h1>
+      <p class="text-3xl md:text-4xl text-cyan-300 mb-8 neon-cyan">
+        24/7 情感陪伴 • 即時糾正敬語與發音
+      </p>
+      <p class="text-2xl mb-12 text-slate-300 max-w-2xl mx-auto">
+        AI 像你的韓國靈魂伴侶，陪你自然地練習韓文
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank"
+           class="glow-btn text-white text-2xl font-bold px-14 py-7 rounded-3xl inline-flex items-center gap-4">
+          <i class="fas fa-heart"></i> 現在就試一次問候
+        </a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank"
+           class="border-2 border-white/70 hover:border-cyan-400 text-white text-2xl font-bold px-14 py-7 rounded-3xl transition-all">
+          瀏覽常用句子
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Phrases -->
+  <section class="py-24 bg-black/40">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-5xl font-bold neon-pink mb-4">Featured Phrases</h2>
+        <p class="text-xl text-slate-300">點擊卡片即可進入練習模式</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="card p-8 rounded-3xl text-center">
+          <div class="hangul mb-6">안녕하세요</div>
+          <div class="text-2xl font-medium">Hello / Hi (polite)</div>
+          <div class="text-cyan-400 text-xl my-4">annyeonghaseyo</div>
+          <div class="text-pink-300">Polite</div>
+          <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="mt-6 block text-pink-400 hover:text-pink-300">去練習 →</a>
+        </div>
+        
+        <div class="card p-8 rounded-3xl text-center">
+          <div class="hangul mb-6">안녕히 가세요</div>
+          <div class="text-2xl font-medium">Goodbye (someone leaving)</div>
+          <div class="text-cyan-400 text-xl my-4">annyeonghi gaseyo</div>
+          <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="mt-6 block text-pink-400 hover:text-pink-300">去練習 →</a>
+        </div>
+        
+        <div class="card p-8 rounded-3xl text-center">
+          <div class="hangul mb-6">잘 지내요?</div>
+          <div class="text-2xl font-medium">How have you been?</div>
+          <div class="text-cyan-400 text-xl my-4">jal jinaeyo?</div>
+          <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="mt-6 block text-pink-400 hover:text-pink-300">去練習 →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Soulmate AI • 學韓文像談戀愛</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • HKCT Innovation Project 2026</p>
+  </footer>
+
+</body>
+</html>

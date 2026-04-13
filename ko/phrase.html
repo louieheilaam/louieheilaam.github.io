@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 即時練習</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+    
+    .card {
+      background: rgba(30, 27, 75, 0.85);
+      border: 2px solid #ff79c6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #22d3ee;
+    }
+    
+    .glow-btn {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 30px #22d3ee, 0 0 50px #ff79c6;
+      transform: scale(1.05);
+    }
+    
+    .hangul {
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ff79c6;
+      text-shadow: 0 0 20px #ff79c6;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar (same as Home) -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">💕</span>
+        <h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1>
+      </div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/KwgrvGq" target="_blank" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="hover:text-cyan-400 transition-colors">即時練習</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/ByLGdMz" target="_blank" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/MYjzvLr" target="_blank" class="hover:text-pink-400 transition-colors">使用方法</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/RNGqZdw" target="_blank" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/WbGYEmp" target="_blank" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="https://codepen.io/Hei-Laam-Louie-Chloe/full/yyaQoQz" target="_blank"
+         class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2">
+        <i class="fas fa-play"></i> 立即練習
+      </a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="pt-24 pb-20 px-6 max-w-5xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-bold neon-pink mb-4">即時練習</h1>
+      <p class="text-2xl text-cyan-300">和你的韓國靈魂伴侶一起練習對話</p>
+    </div>
+
+    <!-- Practice Area -->
+    <div class="card p-10 rounded-3xl mb-12">
+      <h2 class="text-3xl font-bold mb-8 text-center">開始練習</h2>
+      
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Left: Settings -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">1. 選擇情境</h3>
+          <div class="grid grid-cols-2 gap-3 mb-8">
+            <button onclick="alert('已選擇：見面問候')" class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition">👋 見面問候</button>
+            <button onclick="alert('已選擇：日常小聊')" class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition">💬 日常小聊</button>
+            <button onclick="alert('已選擇：告別')" class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition">👋 告別</button>
+            <button onclick="alert('已選擇：關心近況')" class="bg-white/10 hover:bg-white/20 p-4 rounded-2xl transition">❤️ 關心近況</button>
+          </div>
+
+          <h3 class="text-xl font-semibold mb-4">2. 選擇語氣</h3>
+          <div class="flex gap-3">
+            <button onclick="alert('已切換為：Polite (敬語)')" class="flex-1 bg-pink-500/20 hover:bg-pink-500/30 p-4 rounded-2xl transition">Polite (敬語)</button>
+            <button onclick="alert('已切換為：Casual (親密)')" class="flex-1 bg-cyan-500/20 hover:bg-cyan-500/30 p-4 rounded-2xl transition">Casual</button>
+          </div>
+        </div>
+
+        <!-- Right: Chat Input -->
+        <div>
+          <h3 class="text-xl font-semibold mb-4">3. 輸入你的句子</h3>
+          <textarea id="userInput" rows="4" 
+                    class="w-full bg-black/40 border border-white/30 rounded-2xl p-6 text-lg focus:outline-none focus:border-pink-400"
+                    placeholder="例如：你好嗎？ 或 안녕하세요"></textarea>
+          
+          <button onclick="simulateAIResponse()" 
+                  class="glow-btn w-full mt-6 py-6 text-xl font-bold rounded-2xl">
+            送出並讓 AI 糾正
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- AI Response Area (Demo) -->
+    <div id="responseArea" class="hidden card p-10 rounded-3xl">
+      <h3 class="text-2xl font-bold mb-6 flex items-center gap-3">
+        <span class="text-emerald-400">✅</span> AI 回覆
+      </h3>
+      <div class="space-y-8">
+        <div>
+          <p class="text-pink-300 font-medium">正確自然版本：</p>
+          <p id="corrected" class="hangul text-4xl my-4"></p>
+          <p id="roman" class="text-cyan-400 text-2xl"></p>
+        </div>
+        <div>
+          <p class="text-pink-300 font-medium">發音重點：</p>
+          <p id="pronounce" class="text-slate-300"></p>
+        </div>
+        <div>
+          <p class="text-pink-300 font-medium">下一句建議：</p>
+          <p id="next" class="text-slate-300 italic"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Soulmate AI • 即時練習</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • 2026</p>
+  </footer>
+
+  <script>
+    function simulateAIResponse() {
+      const input = document.getElementById('userInput').value.trim();
+      if (!input) {
+        alert("請輸入一些句子！");
+        return;
+      }
+
+      document.getElementById('responseArea').classList.remove('hidden');
+      
+      // Demo response
+      document.getElementById('corrected').textContent = "안녕하세요! 잘 지내요?";
+      document.getElementById('roman').textContent = "annyeonghaseyo! jal jinaeyo?";
+      document.getElementById('pronounce').innerHTML = "發音重點：안녕하세요 的 'h' 要輕輕送氣，지내요 要連音聽起來更自然";
+      document.getElementById('next').textContent = "你可以接：네, 요즘 좀 바빴어요. 너는 어때?";
+    }
+  </script>
+</body>
+</html>
