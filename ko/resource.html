@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 學習資源</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+    
+    .card {
+      background: rgba(30, 27, 75, 0.85);
+      border: 2px solid #ff79c6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: #22d3ee;
+      box-shadow: 0 0 30px rgba(255,121,198,0.4);
+    }
+    
+    .resource-link {
+      transition: all 0.3s ease;
+    }
+    .resource-link:hover {
+      color: #ff79c6;
+      transform: translateX(8px);
+    }
+    
+    .glow-btn {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">💕</span>
+        <h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1>
+      </div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="phrase.html" class="hover:text-pink-400 transition-colors">即時練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="phrase.html"
+         class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2">
+        <i class="fas fa-play"></i> 立即練習
+      </a>
+    </div>
+  </nav>
+
+  <div class="pt-24 pb-20 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-16">
+      <h1 class="text-6xl font-bold neon-pink mb-4">學習資源</h1>
+      <p class="text-2xl text-cyan-300">精選優質韓文學習網站與工具，幫助你更快進步</p>
+    </div>
+
+    <!-- Beginner Phrases -->
+    <div class="mb-20">
+      <h2 class="text-4xl font-bold mb-8 flex items-center gap-4">
+        <span class="text-5xl">👋</span> A) 入門問候與基本句子
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card p-8 rounded-3xl">
+          <h3 class="text-2xl font-semibold mb-6 text-pink-300">Talk To Me In Korean (TTMIK)</h3>
+          <p class="text-slate-300 mb-6">最受歡迎的韓文Podcast + 免費課文，適合初學者學習自然問候語與語境。</p>
+          <a href="https://talktomeinkorean.com/" target="_blank" class="resource-link inline-flex items-center gap-2 text-cyan-400">
+            前往網站 <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        
+        <div class="card p-8 rounded-3xl">
+          <h3 class="text-2xl font-semibold mb-6 text-pink-300">KoreanClass101</h3>
+          <p class="text-slate-300 mb-6">大量問候語、告別語影片與對話練習，附羅馬拼音和中文解釋。</p>
+          <a href="https://www.koreanclass101.com/" target="_blank" class="resource-link inline-flex items-center gap-2 text-cyan-400">
+            前往網站 <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Speech Levels -->
+    <div class="mb-20">
+      <h2 class="text-4xl font-bold mb-8 flex items-center gap-4">
+        <span class="text-5xl">🙇</span> B) 敬語與語氣等級 (Speech Levels)
+      </h2>
+      <div class="card p-10 rounded-3xl">
+        <h3 class="text-2xl font-semibold mb-6">韓文敬語總覽</h3>
+        <p class="text-slate-300 leading-relaxed mb-8">
+          韓文有不同語氣等級（Formal / Polite / Informal / Intimate）。了解這些能讓你的對話更自然，不會失禮。
+        </p>
+        <a href="https://en.wikipedia.org/wiki/Korean_speech_levels" target="_blank" 
+           class="resource-link inline-flex items-center gap-3 text-lg text-cyan-400 font-medium">
+          詳細了解韓文 Speech Levels <i class="fas fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+
+    <!-- Pronunciation -->
+    <div>
+      <h2 class="text-4xl font-bold mb-8 flex items-center gap-4">
+        <span class="text-5xl">🔊</span> C) 發音與聽力練習
+      </h2>
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="card p-8 rounded-3xl">
+          <h3 class="text-2xl font-semibold mb-6 text-pink-300">HowToPronounce</h3>
+          <p class="text-slate-300 mb-6">輸入韓文即可聽標準發音，特別適合練習母音、收音（Batchim）和連音。</p>
+          <a href="https://howtopronounce.com/" target="_blank" class="resource-link inline-flex items-center gap-2 text-cyan-400">
+            前往網站 <i class="fas fa-external-link-alt"></i>
+          </a>
+        </div>
+        
+        <div class="card p-8 rounded-3xl">
+          <h3 class="text-2xl font-semibold mb-6 text-pink-300">YouTube 推薦頻道</h3>
+          <ul class="space-y-4 text-slate-300">
+            <li>• Talk To Me In Korean – Pronunciation Series</li>
+            <li>• Korean Unnie – 自然發音教學</li>
+            <li>• GoBilly Korean – 詳細發音解說</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Soulmate AI • 學習資源</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • HKCT Innovation Project 2026</p>
+  </footer>
+
+</body>
+</html>

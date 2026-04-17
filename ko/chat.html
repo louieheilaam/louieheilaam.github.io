@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 即時練習</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+    
+    .card {
+      background: rgba(30, 27, 75, 0.85);
+      border: 2px solid #ff79c6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #22d3ee;
+    }
+    
+    .glow-btn {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 30px #22d3ee, 0 0 50px #ff79c6;
+      transform: scale(1.05);
+    }
+    
+    .selected.polite { background: rgba(236, 72, 153, 0.4) !important; }
+    .selected.casual { background: rgba(6, 182, 212, 0.4) !important; }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar (same as Home) -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">💕</span>
+        <h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1>
+      </div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="phrase.html" class="hover:text-cyan-400 transition-colors">即時練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="pt-24 pb-20 px-6 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-bold neon-pink mb-4">即時練習</h1>
+      <p class="text-2xl text-cyan-300">和你的韓國靈魂伴侶一起練習對話</p>
+    </div>
+
+    <!-- Tone Selection -->
+    <div class="card p-6 rounded-3xl mb-8">
+      <h3 class="text-xl font-semibold mb-4 text-center">選擇語氣</h3>
+      <div class="flex gap-4 justify-center">
+        <button id="politeBtn" onclick="selectTone('polite')" class="flex-1 bg-pink-500/20 hover:bg-pink-500/30 p-4 rounded-2xl transition active:bg-pink-500/40">Polite (敬語)</button>
+        <button id="casualBtn" onclick="selectTone('casual')" class="flex-1 bg-cyan-500/20 hover:bg-cyan-500/30 p-4 rounded-2xl transition active:bg-cyan-500/40">Casual (親密)</button>
+      </div>
+    </div>
+
+    <!-- Chat Area -->
+    <div class="card p-6 rounded-3xl mb-8">
+      <div id="chatContainer" class="space-y-4 min-h-96 max-h-96 overflow-y-auto p-4 bg-black/20 rounded-2xl">
+        <!-- Messages will be added here -->
+        <div class="text-center text-slate-400">開始聊天吧！輸入英文句子，我會告訴你如何用韓文說。</div>
+      </div>
+    </div>
+
+    <!-- Input Area -->
+    <div class="card p-6 rounded-3xl">
+      <div class="flex gap-4">
+        <input id="userInput" type="text" 
+               class="flex-1 bg-black/40 border border-white/30 rounded-2xl p-4 text-lg focus:outline-none focus:border-pink-400"
+               placeholder="輸入英文句子，例如：Hello" />
+        <button onclick="sendMessage()" 
+                class="glow-btn px-8 py-4 text-lg font-bold rounded-2xl">
+          送出
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Soulmate AI • 即時練習</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • 2026</p>
+  </footer>
+
+  <script>
+    let selectedTone = 'polite'; // default
+
+    const translations = {
+      "hello": { polite: "안녕하세요", casual: "안녕", response: { polite: "안녕하세요, 만나서 반가워요", casual: "안녕, 만나서 반가워" }, responseZh: { polite: "您好，很高興認識您", casual: "嗨，很高興認識你" } },
+      "hi": { polite: "안녕하세요", casual: "안녕", response: { polite: "안녕하세요, 만나서 반가워요", casual: "안녕, 만나서 반가워" }, responseZh: { polite: "您好，很高興認識您", casual: "嗨，很高興認識你" } },
+      "how are you": { polite: "어떻게 지내세요?", casual: "어떻게 지내?", response: { polite: "잘 지내요, 감사합니다", casual: "잘 지내, 고마워" }, responseZh: { polite: "我很好，謝謝", casual: "我很好，謝謝" } },
+      "how are you doing": { polite: "어떻게 지내세요?", casual: "어떻게 지내?" },
+      "how are u": { polite: "어떻게 지내세요?", casual: "어떻게 지내?" },
+      "how r u": { polite: "어떻게 지내세요?", casual: "어떻게 지내?" },
+      "hello how are you": { polite: "안녕하세요, 어떻게 지내세요?", casual: "안녕! 잘 지내? 😊", response: { polite: "안녕하세요, 잘 지내요", casual: "응, 잘 지내! 😊" }, responseZh: { polite: "你好，我很好", casual: "你好，我很好" } },
+      "i am fine": { polite: "잘 지내요", casual: "잘 지내", response: { polite: "다행이에요", casual: "좋아 보여요! 😄" }, responseZh: { polite: "太好了", casual: "太好了" } },
+      "i am fine thank you": { polite: "잘 지내요, 감사합니다", casual: "잘 지내, 고마워", response: { polite: "천만에요", casual: "응, 괜찮아 😊" }, responseZh: { polite: "不客氣", casual: "不客氣" } },
+      "did you eat": { polite: "식사하셨어요?", casual: "밥 먹었어?", response: { polite: "네, 먹었어요", casual: "응, 밥 먹었어! 🍚" }, responseZh: { polite: "是的，我吃過了", casual: "嗯，我吃過了" } },
+      "what did you eat": { polite: "무엇을 드셨어요?", casual: "뭐 먹었어?", response: { polite: "밥을 먹었어요.", casual: "밥 먹었어! 🍚" }, responseZh: { polite: "我吃了飯。", casual: "我吃了飯！" } },
+      "have you eaten": { polite: "식사하셨어요?", casual: "밥 먹었어?", response: { polite: "네, 먹었어요", casual: "응, 맛있게 먹었어! 🍚" }, responseZh: { polite: "是的，我吃過了", casual: "嗯，吃得很飽" } },
+      "did u eat": { polite: "식사하셨어요?", casual: "밥 먹었어?", response: { polite: "네, 먹었어요", casual: "응, 밥 먹었어! 🍚" }, responseZh: { polite: "是的，我吃過了", casual: "嗯，吃得很飽" } },
+      "what did u eat": { polite: "무엇을 드셨어요?", casual: "뭐 먹었어?", response: { polite: "밥을 먹었어요.", casual: "밥 먹었어! 🍚" }, responseZh: { polite: "我吃了飯。", casual: "我吃了飯！" } },
+      "i ate": { polite: "먹었어요", casual: "먹었어", response: { polite: "맛있게 드셨나요?", casual: "맛있었어? 😋" }, responseZh: { polite: "你吃得開心嗎？", casual: "好吃嗎？" } },
+      "how was your day": { polite: "오늘 하루 어떻게 보내셨어요?", casual: "오늘 하루 어땠어?" },
+      "what are you doing": { polite: "무엇을 하고 계세요?", casual: "뭐 해?", response: { polite: "공부하고 있어요", casual: "공부하고 있어! 📚" }, responseZh: { polite: "我在學習", casual: "我在讀書！" } },
+      "i am studying": { polite: "공부하고 있어요", casual: "공부하고 있어", response: { polite: "열심히 하세요", casual: "화이팅! 💪" }, responseZh: { polite: "請加油", casual: "加油！" } },
+      "lets eat": { polite: "식사합시다", casual: "밥 먹자", response: { polite: "네, 식사합시다", casual: "그래, 밥 먹자! 🍜" }, responseZh: { polite: "好啊，一起吃吧", casual: "好啊，一起吃吧！" } },
+      "i am hungry": { polite: "배고파요", casual: "배고파" },
+      "thank you very much": { polite: "정말 감사합니다", casual: "정말 고마워" },
+      "youre welcome": { polite: "천만에요", casual: "별말씀을" },
+      "can you help me": { polite: "도와주실 수 있나요?", casual: "도와줄래?" },
+      "where is the bathroom": { polite: "화장실이 어디에 있나요?", casual: "화장실 어디야?" },
+      "how much is this": { polite: "이거 얼마예요?", casual: "이거 얼마야?" },
+      "i dont understand": { polite: "이해하지 못해요", casual: "모르겠어" },
+      "please speak slowly": { polite: "천천히 말씀해 주세요", casual: "천천히 말해줘" },
+      "i love korean food": { polite: "한국 음식을 좋아해요", casual: "한국 음식 좋아해" },
+      "what time is it": { polite: "몇 시예요?", casual: "몇 시야?" },
+      "see you tomorrow": { polite: "내일 봐요", casual: "내일 봐" },
+      "have a good day": { polite: "좋은 하루 되세요", casual: "좋은 하루 보내" },
+      "i miss you": { polite: "그리워요", casual: "그리워" },
+      "happy birthday": { polite: "생일 축하합니다", casual: "생일 축하해" },
+      "merry christmas": { polite: "메리 크리스마스", casual: "메리 크리스마스" },
+      "thank you": { polite: "감사합니다", casual: "고마워", response: { polite: "천만에요", casual: "별말씀을~ 😊" }, responseZh: { polite: "不客氣", casual: "不客氣" } },
+      "thanks": { polite: "감사합니다", casual: "고마워" },
+      "good morning": { polite: "좋은 아침이에요", casual: "좋은 아침" },
+      "good afternoon": { polite: "좋은 오후예요", casual: "좋은 오후" },
+      "good evening": { polite: "좋은 저녁이에요", casual: "좋은 저녁" },
+      "good night": { polite: "안녕히 주무세요", casual: "잘 자" },
+      "please": { polite: "부탁드려요", casual: "부탁해" },
+      "sorry": { polite: "죄송합니다", casual: "미안해", response: { polite: "괜찮아요", casual: "괜찮아, 걱정 마 😊" }, responseZh: { polite: "沒關係", casual: "沒事" } },
+      "excuse me": { polite: "실례합니다", casual: "실례" },
+      "yes": { polite: "네", casual: "응" },
+      "no": { polite: "아니요", casual: "아니" },
+      "i love you": { polite: "사랑합니다", casual: "사랑해", response: { polite: "저도 사랑합니다", casual: "나도 사랑해 💕" }, responseZh: { polite: "我也愛你", casual: "我也愛你" } },
+      "what is your name": { polite: "이름이 뭐예요?", casual: "이름이 뭐야?", response: { polite: "제 이름은 [이름]이에요", casual: "내 이름은 [이름]이야" }, responseZh: { polite: "我的名字是[名字]。", casual: "我的名字是[名字]。" } },
+      "what's your name": { polite: "이름이 뭐예요?", casual: "이름이 뭐야?" },
+      "my name is": { polite: "제 이름은", casual: "내 이름은", response: { polite: "만나서 반가워요", casual: "만나서 반가워 😊" }, responseZh: { polite: "很高興認識你", casual: "很高興認識你" } },
+      "nice to meet you": { polite: "만나서 반갑습니다", casual: "만나서 반가워", response: { polite: "저도 만나서 반가워요", casual: "나도 만나서 반가워 😊" }, responseZh: { polite: "我也很高興認識你", casual: "我也很高興認識你" } },
+      "see you later": { polite: "나중에 봐요", casual: "나중에 봐", response: { polite: "네, 나중에 봐요", casual: "응, 나중에 봐! 👋" }, responseZh: { polite: "好，待會見", casual: "好，待會見！" } },
+      "goodbye": { polite: "안녕히 가세요", casual: "안녕", response: { polite: "안녕히 가세요", casual: "안녕~" }, responseZh: { polite: "再見", casual: "拜拜" } },
+      "bye": { polite: "안녕히 가세요", casual: "안녕", response: { polite: "안녕히 가세요", casual: "안녕~" }, responseZh: { polite: "再見", casual: "拜拜" } }
+    };
+
+    function selectTone(tone) {
+      selectedTone = tone;
+      document.getElementById('politeBtn').classList.toggle('selected', tone === 'polite');
+      document.getElementById('politeBtn').classList.toggle('polite', tone === 'polite');
+      document.getElementById('casualBtn').classList.toggle('selected', tone === 'casual');
+      document.getElementById('casualBtn').classList.toggle('casual', tone === 'casual');
+
+      const messages = [...document.querySelectorAll('#chatContainer > div[data-english]')].reverse();
+      const lastUserMessage = messages.find(div => div.classList.contains('bg-pink-500/20'));
+      const lastAIMessage = messages.find(div => div.classList.contains('bg-cyan-500/20'));
+      if (lastUserMessage) {
+        const english = lastUserMessage.dataset.english;
+        const translation = translations[english];
+        if (translation) {
+          const korean = translation[selectedTone];
+          const userMessage = `In Korean (${selectedTone === 'polite' ? '敬語' : '親密'}): ${korean}`;
+          const safeUserMessage = escapeHtml(userMessage).replace(/\n/g, '<br>');
+          lastUserMessage.innerHTML = `<div>${escapeHtml(lastUserMessage.dataset.original)}</div><div class="mt-2 text-left text-cyan-100 text-sm">${safeUserMessage}</div>`;
+        }
+      }
+      if (lastAIMessage) {
+        const english = lastAIMessage.dataset.english;
+        const translation = translations[english];
+        if (translation) {
+          const aiKorean = translation.response ? translation.response[selectedTone] : "알겠습니다";
+          const aiChinese = translation.responseZh?.[selectedTone] || "";
+          const aiMessage = aiChinese ? `${aiKorean}\n${aiChinese}` : aiKorean;
+          lastAIMessage.innerHTML = escapeHtml(aiMessage).replace(/\n/g, '<br>');
+        }
+      }
+    }
+
+    function sendMessage() {
+      let input = document.getElementById('userInput').value.trim();
+      if (!input) {
+        alert("請輸入英文句子！");
+        return;
+      }
+
+      const normalizedInput = input.replace(/[^\w\s]/g, '').toLowerCase().trim();
+
+      // Find best match
+      let bestMatch = null;
+      let maxWords = 0;
+      for (const key in translations) {
+        if (normalizedInput.includes(key)) {
+          const wordCount = key.split(' ').length;
+          if (wordCount > maxWords) {
+            maxWords = wordCount;
+            bestMatch = key;
+          }
+        }
+      }
+
+      if (bestMatch) {
+        const translation = translations[bestMatch];
+        const korean = translation[selectedTone];
+        const userMessage = `In Korean (${selectedTone === 'polite' ? '敬語' : '親密'}): ${korean}`;
+        addMessage('user', input, userMessage, normalizedInput);
+
+        let aiMessage = translation.response ? translation.response[selectedTone] : "알겠습니다";
+        const aiChinese = translation.responseZh?.[selectedTone];
+        if (aiChinese) {
+          aiMessage += `\n${aiChinese}`;
+        }
+        addMessage('ai', aiMessage, '', normalizedInput);
+      } else {
+        addMessage('user', input, "", normalizedInput);
+        addMessage('ai', "抱歉，我還不知道這句話。\nSorry, I don't know that phrase yet. Try something like 'hello' or 'thank you'.", '', normalizedInput);
+      }
+
+      // Clear input
+      document.getElementById('userInput').value = '';
+
+      // Scroll to bottom
+      const chat = document.getElementById('chatContainer');
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+      const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      };
+      return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    function addMessage(sender, text, detail = '', english = '') {
+      const chatContainer = document.getElementById('chatContainer');
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `p-3 rounded-2xl max-w-xs ${sender === 'user' ? 'bg-pink-500/20 ml-auto text-right' : 'bg-cyan-500/20 mr-auto'}`;
+      if (sender === 'user' && detail) {
+        const safeText = escapeHtml(text);
+        const safeDetail = escapeHtml(detail).replace(/\n/g, '<br>');
+        messageDiv.innerHTML = `<div>${safeText}</div><div class="mt-2 text-left text-cyan-100 text-sm">${safeDetail}</div>`;
+        messageDiv.dataset.original = text;
+      } else if (text.includes('\n')) {
+        messageDiv.innerHTML = escapeHtml(text).replace(/\n/g, '<br>');
+      } else {
+        messageDiv.textContent = text;
+      }
+      if (english) {
+        messageDiv.dataset.english = english;
+      }
+      chatContainer.appendChild(messageDiv);
+    }
+
+    // Initialize
+    selectTone('polite');
+
+    const params = new URLSearchParams(window.location.search);
+    const startPhrase = params.get('phrase');
+    const startTone = params.get('tone');
+    if (startTone === 'polite' || startTone === 'casual') {
+      selectTone(startTone);
+    }
+    if (startPhrase) {
+      document.getElementById('userInput').value = startPhrase;
+      sendMessage();
+    }
+
+    // Allow sending on Enter
+    document.getElementById('userInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        sendMessage();
+      }
+    });
+  </script>
+</body>
+</html>

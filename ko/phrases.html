@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 常用句子</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+
+    .card {
+      background: rgba(30, 27, 75, 0.88);
+      border: 2px solid #ff79c6;
+      transition: all 0.35s ease;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      border-color: #22d3ee;
+      box-shadow: 0 0 30px rgba(34, 211, 238, 0.25);
+    }
+
+    .phrase-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .phrase-item {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      line-height: 1.75;
+    }
+
+    .phrase-item h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.75rem;
+      color: #f8fafc;
+    }
+
+    .phrase-item p {
+      margin: 0.35rem 0;
+    }
+
+    .phrase-item .korean {
+      font-size: 1.35rem;
+      color: #22d3ee;
+      font-weight: 700;
+    }
+
+    .phrase-item .chinese {
+      color: #cbd5e1;
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <span class="text-3xl">💕</span>
+        <h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1>
+      </div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="phrase.html" class="hover:text-pink-400 transition-colors">即時練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="phrase.html"
+         class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2">
+        <i class="fas fa-play"></i> 立即練習
+      </a>
+    </div>
+  </nav>
+
+  <div class="pt-24 pb-20 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-14">
+      <h1 class="text-6xl font-bold neon-pink mb-4">常用句子</h1>
+      <p class="text-2xl text-cyan-300">這裡整理最常在日常對話中用到的韓語句子，幫你快速開口。包含敬語和親密語氣兩種版本，兩種都能用。</p>
+    </div>
+
+    <div class="card p-10 rounded-3xl mb-12">
+      <h2 class="text-4xl font-bold mb-6 neon-cyan">會話常用句</h2>
+      <div class="phrase-grid">
+        <div class="phrase-item">
+          <h3>問候與開場</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>안녕하세요</p>
+          <p class="chinese">你好</p>
+          <p class="korean"><span class="font-semibold">親密：</span>안녕</p>
+          <p class="chinese">嗨 / 你好</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>잘 지내요?</p>
+          <p class="chinese">你好嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>잘 지내?</p>
+          <p class="chinese">你過得如何？</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>自我介紹</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>제 이름은 [이름]이에요.</p>
+          <p class="chinese">我的名字是[名字]。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>내 이름은 [이름]이야.</p>
+          <p class="chinese">我叫[名字]。</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>만나서 반갑습니다.</p>
+          <p class="chinese">很高興見到你。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>만나서 반가워.</p>
+          <p class="chinese">很高興認識你。</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>基本回應</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>네 / 아니요</p>
+          <p class="chinese">是 / 不是</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>감사합니다</p>
+          <p class="chinese">謝謝您</p>
+          <p class="korean"><span class="font-semibold">親密：</span>고마워</p>
+          <p class="chinese">謝啦</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>禮貌與客氣</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>죄송합니다</p>
+          <p class="chinese">對不起 / 不好意思</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>괜찮아요</p>
+          <p class="chinese">沒關係</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>부탁드립니다</p>
+          <p class="chinese">拜託您了</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>천천히 말씀해 주세요.</p>
+          <p class="chinese">請慢慢說。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-10 rounded-3xl mb-12">
+      <h2 class="text-4xl font-bold mb-6 neon-cyan">生活日常句</h2>
+      <div class="phrase-grid">
+        <div class="phrase-item">
+          <h3>吃飯與購物</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>밥 먹었어요?</p>
+          <p class="chinese">你吃了嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>밥 먹었어?</p>
+          <p class="chinese">你吃了嗎？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>뭐 먹고 싶어요?</p>
+          <p class="chinese">你想吃什麼？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>뭐 먹고 싶어?</p>
+          <p class="chinese">你想吃什麼？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>이거 얼마예요?</p>
+          <p class="chinese">這個多少錢？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>이거 얼마야?</p>
+          <p class="chinese">這個多少錢？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>화장실이 어디예요?</p>
+          <p class="chinese">廁所在哪裡？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>화장실이 어디야?</p>
+          <p class="chinese">廁所在哪裡？（親密）</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>聊天延續</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>오늘 어땠어요?</p>
+          <p class="chinese">今天如何？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>오늘 어땠어?</p>
+          <p class="chinese">今天如何？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>요즘 뭐 하고 있어요?</p>
+          <p class="chinese">最近在做什麼？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>요즘 뭐 하고 있어?</p>
+          <p class="chinese">最近在做什麼？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>주말에 뭐 할 거예요?</p>
+          <p class="chinese">週末要做什麼？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>주말에 뭐 할 거야?</p>
+          <p class="chinese">週末要做什麼？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>좋아해요</p>
+          <p class="chinese">我喜歡你 / 我喜歡這個。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>좋아해</p>
+          <p class="chinese">我喜歡你 / 我喜歡這個。（親密）</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>表達心情</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>배고파요.</p>
+          <p class="chinese">我餓了。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>배고파.</p>
+          <p class="chinese">我餓了。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>피곤해요.</p>
+          <p class="chinese">我累了。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>피곤해.</p>
+          <p class="chinese">我累了。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>보고 싶어요.</p>
+          <p class="chinese">我想你。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>보고 싶어.</p>
+          <p class="chinese">我想你。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>재미있어요.</p>
+          <p class="chinese">很好玩。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>재미있어.</p>
+          <p class="chinese">很好玩。（親密）</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-10 rounded-3xl mb-12">
+      <h2 class="text-4xl font-bold mb-6 neon-cyan">實用問句</h2>
+      <div class="phrase-grid">
+        <div class="phrase-item">
+          <h3>請求幫忙</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>도와주실 수 있어요?</p>
+          <p class="chinese">你可以幫我嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>도와줄 수 있어?</p>
+          <p class="chinese">你可以幫我嗎？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>이거 어떻게 해요?</p>
+          <p class="chinese">這個怎麼做？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>이거 어떻게 해?</p>
+          <p class="chinese">這個怎麼做？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>이해가 안 돼요.</p>
+          <p class="chinese">我不懂。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>이해가 안 돼.</p>
+          <p class="chinese">我不懂。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>다시 말해 주세요.</p>
+          <p class="chinese">請再說一次。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>다시 말해 줘.</p>
+          <p class="chinese">請再說一次。（親密）</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>告別與祝福</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>내일 봐요.</p>
+          <p class="chinese">明天見。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>내일 봐.</p>
+          <p class="chinese">明天見。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>안녕히 주무세요.</p>
+          <p class="chinese">晚安。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>잘 자.</p>
+          <p class="chinese">晚安。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>행복한 하루 보내세요.</p>
+          <p class="chinese">祝你有美好的一天。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>좋은 하루 보내.</p>
+          <p class="chinese">祝你有美好的一天。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>생일 축하합니다.</p>
+          <p class="chinese">生日快樂。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>생일 축하해.</p>
+          <p class="chinese">生日快樂。（親密）</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="card p-10 rounded-3xl mb-12">
+      <h2 class="text-4xl font-bold mb-6 neon-cyan">戀愛情境句</h2>
+      <div class="phrase-grid">
+        <div class="phrase-item">
+          <h3>表達喜歡</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>좋아합니다.</p>
+          <p class="chinese">我喜歡你。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>좋아해.</p>
+          <p class="chinese">我喜歡你。（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>사랑해요.</p>
+          <p class="chinese">我愛你。</p>
+          <p class="korean"><span class="font-semibold">親密：</span>사랑해.</p>
+          <p class="chinese">我愛你。（親密）</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>約會邀請</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>같이 영화 볼래요?</p>
+          <p class="chinese">要一起看電影嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>같이 영화 볼래?</p>
+          <p class="chinese">要一起看電影嗎？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>저녁 같이 먹을래요?</p>
+          <p class="chinese">要一起吃晚餐嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>저녁 같이 먹을래?</p>
+          <p class="chinese">要一起吃晚餐嗎？（親密）</p>
+        </div>
+
+        <div class="phrase-item">
+          <h3>關心對方</h3>
+          <p class="korean"><span class="font-semibold">敬語：</span>잘 지냈어요?</p>
+          <p class="chinese">你過得好嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>잘 지냈어?</p>
+          <p class="chinese">你過得好嗎？（親密）</p>
+          <p class="korean"><span class="font-semibold">敬語：</span>무슨 일 있어요?</p>
+          <p class="chinese">有什麼事嗎？</p>
+          <p class="korean"><span class="font-semibold">親密：</span>무슨 일 있어?</p>
+          <p class="chinese">有什麼事嗎？（親密）</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center mt-20">
+      <a href="index.html" class="glow-btn inline-block text-2xl font-bold px-14 py-5 rounded-3xl">
+        回到首頁
+      </a>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Soulmate AI • 常用句子</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • 2026</p>
+  </footer>
+</body>
+</html>

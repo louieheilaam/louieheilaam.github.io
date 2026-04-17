@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 關於我們</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body { background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%); color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; overflow-x:hidden; }
+    .neon-pink { text-shadow:0 0 10px #ff79c6,0 0 20px #ff79c6,0 0 40px #c026d3; }
+    .card { background: rgba(30,27,75,0.85); border:2px solid #ff79c6; transition:all .4s cubic-bezier(.4,0,.2,1); }
+    .card:hover { transform: translateY(-8px); border-color:#22d3ee; }
+    .glow-btn { background: linear-gradient(90deg,#ff79c6,#c026d3,#22d3ee); transition:all .3s ease; }
+    .glow-btn:hover { transform: scale(1.05); }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3"><span class="text-3xl">💕</span><h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1></div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="phrase.html" class="hover:text-pink-400 transition-colors">即時練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="phrase.html" class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2"><i class="fas fa-play"></i> 立即練習</a>
+    </div>
+  </nav>
+  <div class="pt-24 pb-20 px-6 max-w-5xl mx-auto">
+    <div class="text-center mb-16"><h1 class="text-6xl font-bold neon-pink mb-6">關於我們</h1><p class="text-2xl text-cyan-300">學韓文像談一場甜蜜的韓國戀愛 💕</p></div>
+    <div class="card p-12 rounded-3xl mb-20">
+      <h2 class="text-4xl font-bold mb-8 text-center">Soulmate AI 是什麼？</h2>
+      <div class="prose prose-invert max-w-none text-lg leading-relaxed text-slate-200">
+        <p class="mb-6">Soulmate AI 是一個以「情感陪伴」為核心的韓文學習工具。 我們不只是教你韓文句子，而是讓 AI 成為你的韓國靈魂伴侶，24/7 陪你練習對話，並記住你的情緒與偏好。</p>
+        <p>從「안녕하세요」開始，到自然流暢的日常對話，我們希望讓學習韓文變得有趣、不孤單，像談一場甜蜜的韓國戀愛一樣。</p>
+      </div>
+    </div>
+    <div class="mb-20"><h2 class="text-4xl font-bold text-center mb-12 neon-pink">我們的團隊</h2><div class="grid md:grid-cols-2 gap-8">
+      <div class="card p-8 rounded-3xl text-center"><div class="text-6xl mb-6">👩‍💻</div><h3 class="text-2xl font-bold mb-2">Louie Hei Laam (Chloe)</h3><p class="text-pink-300">項目負責人 / 前端設計</p><p class="text-sm text-slate-400 mt-6">負責整體網站設計、用戶體驗與互動介面</p></div>
+      <div class="card p-8 rounded-3xl text-center"><div class="text-6xl mb-6">👥</div><h3 class="text-2xl font-bold mb-2">Chan Yuen Yee, Kwok Chin Chin, Yeung Tsz Ying</h3><p class="text-pink-300">團隊成員</p><p class="text-sm text-slate-400 mt-6">共同參與概念設計、內容整理與項目開發</p></div>
+    </div></div>
+    <div class="card p-12 rounded-3xl"><h2 class="text-4xl font-bold mb-8 text-center">HKCT Innovation Project</h2><div class="text-center"><p class="text-xl text-slate-300 max-w-2xl mx-auto">這是我們在香港基督教服務處（HKCT）創新項目課程的最終作品。 我們希望透過結合 AI 情感陪伴與韓文學習，解決香港年輕人學習語言時常遇到的「孤單」「不敢開口」和「缺乏動力」三大問題。</p><div class="mt-12 inline-flex items-center gap-3 bg-white/10 px-8 py-4 rounded-2xl"><span class="text-2xl">🇭🇰</span><span class="text-lg">香港 • 2026</span></div></div></div>
+  </div>
+  <footer class="bg-black py-12 text-center text-slate-500"><p>Soulmate AI • 關於我們</p><p class="mt-1">Louie Hei Laam (Chloe) &amp; Team • HKCT Innovation Project 2026</p></footer>
+</body>
+</html>
