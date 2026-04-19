@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Soulmate AI • 統計數據</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body { background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%); color: #f8fafc; font-family: system-ui, -apple-system, sans-serif; overflow-x:hidden; }
+    .neon-pink { text-shadow:0 0 10px #ff79c6,0 0 20px #ff79c6,0 0 40px #c026d3; }
+    .neon-cyan { text-shadow:0 0 10px #22d3ee,0 0 20px #22d3ee; }
+    .card { background: rgba(30,27,75,0.85); border:2px solid #ff79c6; transition:all .4s cubic-bezier(.4,0,.2,1); }
+    .card:hover { transform: translateY(-8px); border-color:#22d3ee; }
+    .glow-btn { background: linear-gradient(90deg,#ff79c6,#c026d3,#22d3ee); transition:all .3s ease; }
+    .glow-btn:hover { transform: scale(1.05); }
+    .stat-number { font-size: 4rem; font-weight: bold; background: linear-gradient(90deg,#ff79c6,#22d3ee); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  </style>
+</head>
+<body class="min-h-screen">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3"><span class="text-3xl">💕</span><h1 class="text-2xl font-bold neon-pink">Soulmate AI</h1></div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="chat.html" class="hover:text-pink-400 transition-colors">即時練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="stat.html" class="hover:text-cyan-400 transition-colors">統計數據</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+      <a href="chat.html" class="glow-btn text-white text-sm font-bold px-6 py-2.5 rounded-2xl inline-flex items-center gap-2"><i class="fas fa-play"></i> 立即練習</a>
+    </div>
+  </nav>
+  <div class="pt-24 pb-20 px-6 max-w-6xl mx-auto">
+    <div class="text-center mb-16"><h1 class="text-6xl font-bold neon-pink mb-6">統計數據</h1><p class="text-2xl text-cyan-300">看看你的學習進度 📊</p></div>
+    <div class="grid md:grid-cols-3 gap-8 mb-16">
+      <div class="card p-8 rounded-3xl text-center">
+        <div class="stat-number mb-4">127</div>
+        <div class="text-xl text-slate-300">總對話次數</div>
+      </div>
+      <div class="card p-8 rounded-3xl text-center">
+        <div class="stat-number mb-4">45</div>
+        <div class="text-xl text-slate-300">練習句子數</div>
+      </div>
+      <div class="card p-8 rounded-3xl text-center">
+        <div class="stat-number mb-4">12</div>
+        <div class="text-xl text-slate-300">連續練習天數</div>
+      </div>
+    </div>
+    <div class="card p-8 rounded-3xl mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-center neon-pink">線上課程對學習成效的影響</h2>
+      <p class="text-center text-slate-300 mb-4">根據模擬數據分析，參加線上課程的學生表現顯著優於沒有參加的學生。有參加線上課程的學生平均分數為 78.3 分，而沒有参加的為 68.4 分。圖表顯示高分組（Grade 5-7）學生中，有參加線上課程的佔 70%，遠高於沒参加的 20%。</p>
+      <p class="text-center text-slate-300 mb-8">這表明線上課程能有效提升學習成效，尤其是對高分組的貢獻最為明顯。</p>
+      <div class="h-96">
+        <canvas id="performanceChart"></canvas>
+      </div>
+    </div>
+    <div class="card p-8 rounded-3xl mb-12">
+      <h2 class="text-3xl font-bold mb-6 text-center neon-pink">學習成就</h2>
+      <div class="space-y-4">
+        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl"><span class="text-3xl">🌟</span><div><div class="font-bold">初學者</div><div class="text-sm text-slate-400">完成第一次對話</div></div></div>
+        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl"><span class="text-3xl">💬</span><div><div class="font-bold">對話達人</div><div class="text-sm text-slate-400">完成 50 次對話</div></div></div>
+        <div class="flex items-center gap-4 p-4 bg-white/5 rounded-2xl"><span class="text-3xl">🔥</span><div><div class="font-bold">堅持不懈</div><div class="text-sm text-slate-400">連續練習 7 天</div></div></div>
+      </div>
+    </div>
+  </div>
+  <footer class="bg-black py-12 text-center text-slate-500"><p>Soulmate AI • 統計數據</p><p class="mt-1">Louie Hei Laam (Chloe) &amp; Team • HKCT Innovation Project 2026</p></footer>
+<script>
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['沒有參加線上課程', '有參加線上課程'],
+        datasets: [
+          {
+            label: '高分組 (Grade 5-7)',
+            data: [20, 70],
+            backgroundColor: 'rgba(34, 211, 238, 0.8)',
+            borderColor: '#22d3ee',
+            borderWidth: 2
+          },
+          {
+            label: '標準/低分組 (Grade 1-4)',
+            data: [80, 30],
+            backgroundColor: 'rgba(255, 152, 0, 0.8)',
+            borderColor: '#ff9800',
+            borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { labels: { color: '#f8fafc', font: { size: 14 } } },
+          title: { display: false }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 100,
+            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(255,255,255,0.1)' },
+            title: { display: true, text: '學生百分比 (%)', color: '#94a3b8' }
+          },
+          x: {
+            ticks: { color: '#94a3b8' },
+            grid: { color: 'rgba(255,255,255,0.1)' }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
