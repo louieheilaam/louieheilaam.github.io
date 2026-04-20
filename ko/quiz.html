@@ -380,7 +380,7 @@
     let currentQuestion = 0;
     let score = 0;
     let answered = false;
-    let timer = 15;
+    let timer = 60;
     let timerInterval = null;
     let startTime = null;
     let correctCount = 0;
@@ -417,7 +417,7 @@
 
     function startTimer() {
       clearInterval(timerInterval);
-      timer = 15;
+      timer = 60;
       document.getElementById('timer').textContent = timer;
       document.getElementById('timer').classList.remove('timer-warning');
       
@@ -425,7 +425,7 @@
         timer--;
         document.getElementById('timer').textContent = timer;
         
-        if (timer <= 5) {
+        if (timer <= 20) {
           document.getElementById('timer').classList.add('timer-warning');
         }
         
@@ -523,15 +523,21 @@
     function showFeedback(isCorrect, q) {
       const feedbackDiv = document.getElementById('feedback');
       feedbackDiv.classList.remove('hidden');
+      const nextBtn = feedbackDiv.querySelector('button');
       
       if (isCorrect) {
         document.getElementById('feedbackIcon').textContent = '✅';
         document.getElementById('feedbackText').textContent = '正確！';
         document.getElementById('feedbackText').className = 'text-2xl font-bold mb-2 text-green-400';
+        nextBtn.classList.add('hidden');
+        setTimeout(() => {
+          nextQuestion();
+        }, 2000);
       } else {
         document.getElementById('feedbackIcon').textContent = '❌';
         document.getElementById('feedbackText').textContent = '錯誤！';
         document.getElementById('feedbackText').className = 'text-2xl font-bold mb-2 text-red-400';
+        nextBtn.classList.remove('hidden');
       }
       
       document.getElementById('feedbackAnswer').innerHTML = `正確答案：<span class="text-cyan-400 font-bold">${q.options[q.correct]}</span>`;
