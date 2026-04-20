@@ -203,8 +203,8 @@
   <!-- Listening Exercise -->
   <div class="mt-16">
     <div class="text-center mb-8">
-      <h2 class="text-4xl font-bold neon-pink mb-4">聽力練習</h2>
-      <p class="text-xl text-cyan-300">聽韓文句子，點擊播放</p>
+      <h2 class="text-4xl font-bold neon-pink mb-4">單字練習</h2>
+      <p class="text-xl text-cyan-300">食物 / 物件 / 地點</p>
     </div>
 
     <div class="card p-8 rounded-3xl mb-6">
@@ -509,23 +509,46 @@
       document.getElementById('startScreen').classList.remove('hidden');
     }
 
-    // Listening Exercise
+    // Listening Exercise - Vocab: Food
     const listeningData = [
-      { korean: "안녕하세요", romanization: "annyeonghaseyo", chinese: "你好", explanation: "最常見的問候語，用於白天或一般場合的禮貌用法。" },
-      { korean: "안녕", romanization: "annyeong", chinese: "嗨 / 你好", explanation: "較親密的問候語，只用於熟悉的朋友或晚輩。" },
-      { korean: "잘 지내요?", romanization: "jal jinaeyo?", chinese: "你好嗎？", explanation: "詢問對方過得好不好的問候語。" },
-      { korean: "네", romanization: "ne", chinese: "是", explanation: "表示肯定的回答。" },
-      { korean: "아니요", romanization: "aniyo", chinese: "不是", explanation: "表示否定的回答。" },
-      { korean: "감사합니다", romanization: "gamsahamnida", chinese: "謝謝您", explanation: "正式的感謝語，用於對長輩或正式場合。" },
-      { korean: "죄송합니다", romanization: "joesonghamnida", chinese: "對不起", explanation: "正式的道歉語。" },
-      { korean: "괜찮아요", romanization: "gwaenchanayo", chinese: "沒關係", explanation: "表示沒關係，常用於安慰對方。" },
-      { korean: "사랑해요", romanization: "saranghaeyo", chinese: "我愛你", explanation: "表達愛意的句子。" },
-      { korean: "좋아합니다", romanization: "joahamnida", chinese: "我喜歡你", explanation: "「喜歡」的意思，可用於表達喜歡某人。" },
-      { korean: "안녕히 가세요", romanization: "annyeonghi gaseyo", chinese: "再見", explanation: "對離開的人說的再見。" },
-      { korean: "안녕히 주무세요", romanization: "annyeonghi jumuseyo", chinese: "晚安", explanation: "睡前說的晚安祝福語。" },
-      { korean: "내일 봐요", romanization: "naeil bwayo", chinese: "明天見", explanation: "「明天見」的意思。" },
-      { korean: "만나서 반갑습니다", romanization: "mannaseo bangapseumnida", chinese: "很高興認識你", explanation: "第一次見面時說的話。" },
-      { korean: "식사하셨어요?", romanization: "siksahasyeosseoyo?", chinese: "你吃了嗎？", explanation: "關心對方是否吃過飯。" }
+      // Food 食物
+      { korean: "밥", romanization: "bap", chinese: "飯", category: "食物" },
+      { korean: "김치", romanization: "kimchi", chinese: "泡菜", category: "食物" },
+      { korean: "라면", romanization: "ramyeon", chinese: "拉麵", category: "食物" },
+      { korean: "비빔밥", romanization: "bibimbap", chinese: "拌飯", category: "食物" },
+      { korean: "불고기", romanization: "bulgogi", chinese: "烤肉", category: "食物" },
+      { korean: "삼겹살", romanization: "samgyeopsal", chinese: "三層肉", category: "食物" },
+      { korean: "찌개", romanization: "jjigae", chinese: "火鍋/湯", category: "食物" },
+      { korean: "떡볶이", romanization: "tteokbokki", chinese: "辣炒年糕", category: "食物" },
+      { korean: "파전", romanization: "pajeon", chinese: "蔥煎餅", category: "食物" },
+      { korean: "냉면", romanization: "naengmyeon", chinese: "冷麵", category: "食物" },
+      { korean: "카레", romanization: "kare", chinese: "咖哩", category: "食物" },
+      { korean: "햄버거", romanization: "haembeogeo", chinese: "漢堡", category: "食物" },
+      { korean: "피자", romanization: "pijja", chinese: "披薩", category: "食物" },
+      { korean: "초밥", romanization: "chobap", chinese: "壽司", category: "食物" },
+      { korean: "라멘", romanization: "ramen", chinese: "拉麵", category: "食物" },
+      // Objects 物件
+      { korean: "책", romanization: "chaek", chinese: "書", category: "物件" },
+      { korean: "연필", romanization: "yeonpil", chinese: "鉛筆", category: "物件" },
+      { korean: "노트", romanization: "noteu", chinese: "筆記本", category: "物件" },
+      { korean: "볼펜", romanization: "bolpen", chinese: "原子筆", category: "物件" },
+      { korean: "가방", romanization: "gabang", chinese: "背包", category: "物件" },
+      { korean: "시계", romanization: "sigye", chinese: "手錶/時鐘", category: "物件" },
+      { korean: "전화기", romanization: "jeonhwagi", chinese: "電話", category: "物件" },
+      { korean: "컴퓨터", romanization: "keompyuteo", chinese: "電腦", category: "物件" },
+      { korean: "휴대폰", romanization: "hyudaepon", chinese: "手機", category: "物件" },
+      { korean: "텔레비전", romanization: "tellebijeon", chinese: "電視", category: "物件" },
+      // Places 地點
+      { korean: "식당", romanization: "sikdang", chinese: "餐廳", category: "地點" },
+      { korean: "카페", romanization: "kape", chinese: "咖啡廳", category: "地點" },
+      { korean: "서점", romanization: "seoljeom", chinese: "書店", category: "地點" },
+      { korean: "약국", romanization: "yakguk", chinese: "藥房", category: "地點" },
+      { korean: "병원", romanization: "byeongwon", chinese: "醫院", category: "地點" },
+      { korean: "학교", romanization: "hakgyo", chinese: "學校", category: "地點" },
+      { korean: "회사", romanization: "hoesa", chinese: "公司", category: "地點" },
+      { korean: "지하철", romanization: "jihacheol", chinese: "地鐵", category: "地點" },
+      { korean: "역", romanization: "yeok", chinese: "車站", category: "地點" },
+      { korean: "공항", romanization: "gonghang", chinese: "機場", category: "地點" }
     ];
 
     let currentListeningIndex = 0;
@@ -542,14 +565,20 @@
       const item = listeningData[currentListeningIndex];
       
       document.getElementById('listeningKorean').textContent = item.korean;
-      document.getElementById('listeningRoman').textContent = item.romanization;
+      document.getElementById('listeningRoman').textContent = item.romanization + ` (${item.category})`;
       document.getElementById('transcriptChinese').textContent = item.chinese;
-      document.getElementById('transcriptExplanation').textContent = item.explanation;
+      document.getElementById('transcriptExplanation').textContent = item.category;
       
-      const words = item.korean.split('');
+      // For single character words, split by character; for longer words, keep as one
+      let words = [];
+      if (item.korean.length <= 2) {
+        words = item.korean.split('');
+      } else {
+        words = [item.korean];
+      }
       let wordHtml = '';
       words.forEach((word, idx) => {
-        wordHtml += `<span class="word cursor-pointer hover:text-pink-400 p-1 transition-colors" onclick="highlightWord(this)">${word}</span>`;
+        wordHtml += `<span class="cursor-pointer hover:text-pink-400 p-2 text-2xl transition-colors font-bold" onclick="highlightWord(this)">${word}</span>`;
       });
       document.getElementById('wordHighlight').innerHTML = wordHtml;
     }
@@ -597,14 +626,19 @@
     function initListening() {
       const item = listeningData[0];
       document.getElementById('listeningKorean').textContent = item.korean;
-      document.getElementById('listeningRoman').textContent = item.romanization;
+      document.getElementById('listeningRoman').textContent = item.romanization + ` (${item.category})`;
       document.getElementById('transcriptChinese').textContent = item.chinese;
-      document.getElementById('transcriptExplanation').textContent = item.explanation;
+      document.getElementById('transcriptExplanation').textContent = item.category;
       
-      const words = item.korean.split('');
+      let words = [];
+      if (item.korean.length <= 2) {
+        words = item.korean.split('');
+      } else {
+        words = [item.korean];
+      }
       let wordHtml = '';
       words.forEach((word) => {
-        wordHtml += `<span class="word cursor-pointer hover:text-pink-400 p-1 transition-colors" onclick="highlightWord(this)">${word}</span>`;
+        wordHtml += `<span class="cursor-pointer hover:text-pink-400 p-2 text-2xl transition-colors font-bold" onclick="highlightWord(this)">${word}</span>`;
       });
       document.getElementById('wordHighlight').innerHTML = wordHtml;
     }
