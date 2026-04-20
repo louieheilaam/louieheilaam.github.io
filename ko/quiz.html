@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Talki-Ko • 做練習</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #0a0a1f 0%, #1e1b4b 50%, #312e81 100%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+    
+    .neon-pink { text-shadow: 0 0 10px #ff79c6, 0 0 20px #ff79c6, 0 0 40px #c026d3; }
+    .neon-cyan { text-shadow: 0 0 10px #22d3ee, 0 0 20px #22d3ee; }
+    
+    .card {
+      background: rgba(30, 27, 75, 0.85);
+      border: 2px solid #ff79c6;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      border-color: #22d3ee;
+    }
+    
+    .glow-btn {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: all 0.3s ease;
+    }
+    .glow-btn:hover {
+      box-shadow: 0 0 30px #22d3ee, 0 0 50px #ff79c6;
+      transform: scale(1.05);
+    }
+    
+    .option-btn {
+      background: rgba(255,255,255,0.05);
+      border: 2px solid rgba(255,255,255,0.2);
+      transition: all 0.3s ease;
+    }
+    .option-btn:hover:not(:disabled) {
+      border-color: #ff79c6;
+      background: rgba(255,121,198,0.1);
+    }
+    .option-btn.correct {
+      border-color: #22d3ee !important;
+      background: rgba(34,211,238,0.3) !important;
+    }
+    .option-btn.wrong {
+      border-color: #ef4444 !important;
+      background: rgba(239,68,68,0.3) !important;
+    }
+    .option-btn:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+    
+    .timer-warning {
+      animation: pulse 0.5s ease-in-out infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .progress-fill {
+      background: linear-gradient(90deg, #ff79c6, #c026d3, #22d3ee);
+      transition: width 0.5s ease;
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.3s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-md border-b border-pink-500/30">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center gap-3"><svg width="40" height="40" viewBox="0 0 50 50" fill="none"><path d="M25 4C13.954 4 5 11.619 5 21C5 26.957 8.133 32.229 13.395 35.609C13.221 36.885 12.182 39 10 39H8C6.343 39 5 37.657 5 36C5 34.343 6.343 33 8 33H12L16 45H17L25 33C25 33 25 26 25 21C25 16 28 12 32 11C28.5 8 26.5 4 25 4Z" fill="#ff79c6" stroke="#ff79c6" stroke-width="2"/><path d="M25 20C25 20 22 17 19 17C16 17 14 20 14 23C14 28 25 34 25 34C25 34 36 28 36 23C36 20 34 17 31 17C28 17 25 20 25 20Z" fill="#fff"/></svg><h1 class="text-2xl font-bold neon-pink">Talki-Ko</h1></div>
+      <div class="flex gap-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-pink-400 transition-colors">首頁</a>
+        <a href="chat.html" class="hover:text-pink-400 transition-colors">即時練習</a>
+        <a href="quiz.html" class="hover:text-pink-400 transition-colors">做練習</a>
+        <a href="phrases.html" class="hover:text-pink-400 transition-colors">常用句子</a>
+        <a href="resource.html" class="hover:text-cyan-400 transition-colors">學習資源</a>
+        <a href="stat.html" class="hover:text-cyan-400 transition-colors">統計數據</a>
+        <a href="about.html" class="hover:text-cyan-400 transition-colors">關於我們</a>
+        <a href="contact.html" class="hover:text-pink-400 transition-colors">聯絡</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="pt-24 pb-20 px-6 max-w-4xl mx-auto">
+    <div class="text-center mb-12">
+      <h1 class="text-6xl font-bold neon-pink mb-4">做練習</h1>
+      <p class="text-2xl text-cyan-300">會話常用句測驗</p>
+    </div>
+
+    <!-- Stats Bar -->
+    <div class="card p-4 rounded-3xl mb-8 flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <div class="text-xl">得分：<span id="score" class="text-3xl font-bold text-pink-400">0</span> / <span id="total">0</span></div>
+        <div class="flex items-center gap-2">
+          <i class="fas fa-clock text-cyan-400"></i>
+          <span id="timer" class="text-2xl font-bold text-cyan-400">15</span>
+          <span class="text-slate-400">秒</span>
+        </div>
+      </div>
+      <button onclick="resetQuiz()" class="text-cyan-400 hover:text-pink-400 transition-colors">
+        <i class="fas fa-redo mr-1"></i>重新開始
+      </button>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="mb-8">
+      <div class="flex justify-between text-sm text-slate-400 mb-2">
+        <span>進度</span>
+        <span id="progressText">問題 1 / 15</span>
+      </div>
+      <div class="w-full bg-white/10 rounded-full h-3 overflow-hidden">
+        <div id="progressBar" class="progress-fill h-full rounded-full" style="width: 0%"></div>
+      </div>
+    </div>
+
+    <!-- Quiz Card -->
+    <div id="quizCard" class="card p-8 rounded-3xl fade-in">
+      <div class="flex justify-between items-center mb-6">
+        <span id="category" class="text-sm text-pink-400 bg-pink-400/20 px-3 py-1 rounded-full">問候與開場</span>
+        <span id="streak" class="text-sm text-cyan-400"></span>
+      </div>
+      
+      <div class="text-center mb-8">
+        <div id="question" class="text-4xl font-bold mb-4 hangul">안녕하세요</div>
+        <div id="questionChinese" class="text-xl text-cyan-300">你好</div>
+      </div>
+      
+      <div id="options" class="space-y-4">
+      </div>
+      
+      <div id="feedback" class="mt-8 p-6 rounded-2xl text-center hidden">
+        <div id="feedbackIcon" class="text-5xl mb-3"></div>
+        <div id="feedbackText" class="text-2xl font-bold mb-2"></div>
+        <div id="feedbackAnswer" class="text-lg text-slate-300 mb-4"></div>
+        <div id="explanation" class="text-slate-400 mb-6 p-4 bg-black/30 rounded-xl"></div>
+        <button onclick="nextQuestion()" class="glow-btn px-10 py-4 text-xl font-bold rounded-2xl">
+          下一題 <i class="fas fa-arrow-right ml-2"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="hidden text-center py-12">
+      <div class="card p-12 rounded-3xl">
+        <div id="resultEmoji" class="text-8xl mb-6"></div>
+        <h2 class="text-5xl font-bold neon-pink mb-4">測驗完成！</h2>
+        <div class="text-7xl font-bold text-cyan-400 mb-4" id="finalScore">0 / 0</div>
+        <div class="text-2xl text-slate-300 mb-8" id="resultMessage"></div>
+        <div class="flex justify-center gap-6 mb-8">
+          <div class="text-center">
+            <div id="correctCount" class="text-3xl font-bold text-green-400">0</div>
+            <div class="text-sm text-slate-400">正確</div>
+          </div>
+          <div class="text-center">
+            <div id="wrongCount" class="text-3xl font-bold text-red-400">0</div>
+            <div class="text-sm text-slate-400">錯誤</div>
+          </div>
+          <div class="text-center">
+            <div id="timeUsed" class="text-3xl font-bold text-yellow-400">0s</div>
+            <div class="text-sm text-slate-400">用時</div>
+          </div>
+        </div>
+        <button onclick="initQuiz()" class="glow-btn px-12 py-5 text-2xl font-bold rounded-3xl">
+          <i class="fas fa-redo mr-2"></i>再玩一次
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-black py-12 text-center text-slate-500">
+    <p>Talki-Ko • 做練習</p>
+    <p class="mt-1">Louie Hei Laam (Chloe) • 2026</p>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        category: "問候與開場",
+        question: "안녕하세요",
+        romanization: "annyeonghaseyo",
+        chinese: "你好",
+        options: ["Hello / Hi (polite)", "Goodbye", "Thank you", "Sorry"],
+        correct: 0,
+        explanation: "안녕하세요 (annyeonghaseyo) 是最常見的問候語，用於白天或一般場合的禮貌用法。"
+      },
+      {
+        category: "問候與開場",
+        question: "안녕",
+        romanization: "annyeong",
+        chinese: "嗨 / 你好 (親密)",
+        options: ["Hello (casual)", "Goodbye", "Thank you", "Sorry"],
+        correct: 0,
+        explanation: "안녕 (annyeong) 是較親密的問候語，只用於熟悉的朋友或晚輩。"
+      },
+      {
+        category: "問候與開場",
+        question: "잘 지내요?",
+        romanization: "jal jinaeyo?",
+        chinese: "你好嗎？ / 過得好嗎？",
+        options: ["What is your name?", "How have you been?", "Where are you from?", "What are you doing?"],
+        correct: 1,
+        explanation: "잘 지내요? (jal jinaeyo?) 是詢問對方過得好不好的問候語，是很常用的寒暄句。"
+      },
+      {
+        category: "自我介紹",
+        question: "제 이름은 [이름]이에요.",
+        romanization: "je ireumeun [ireum]ieyo",
+        chinese: "我的名字是[名字]。",
+        options: ["My name is...", "Nice to meet you", "How old are you?", "Where are you from?"],
+        correct: 0,
+        explanation: "제 이름은...이에요 是正式的自我介紹句型，用於介紹自己的名字。"
+      },
+      {
+        category: "自我介紹",
+        question: "만나서 반갑습니다.",
+        romanization: "mannaseo bangapseumnida",
+        chinese: "很高興認識你。",
+        options: ["Nice to meet you", "Goodbye", "Thank you", "See you later"],
+        correct: 0,
+        explanation: "만나서 반갑습니다 是第一次見面時說的話，表達很高興認識對方。"
+      },
+      {
+        category: "基本回應",
+        question: "네",
+        romanization: "ne",
+        chinese: "是 / 是的",
+        options: ["Yes", "No", "Maybe", "Sorry"],
+        correct: 0,
+        explanation: "네 (ne) 是表示肯定的回答，相當於英文的 Yes。"
+      },
+      {
+        category: "基本回應",
+        question: "아니요",
+        romanization: "aniyo",
+        chinese: "不是 / 不是的",
+        options: ["Yes", "No", "Okay", "Hello"],
+        correct: 1,
+        explanation: "아니요 (aniyo) 是表示否定的回答，相當於英文的 No。"
+      },
+      {
+        category: "基本回應",
+        question: "감사합니다",
+        romanization: "gamsahamnida",
+        chinese: "謝謝您",
+        options: ["Hello", "Goodbye", "Thank you", "Sorry"],
+        correct: 2,
+        explanation: "감사합니다 是正式的感謝語，用於對長輩或正式場合。"
+      },
+      {
+        category: "基本回應",
+        question: "고마워",
+        romanization: "gomawo",
+        chinese: "謝啦",
+        options: ["Hello", "Goodbye", "Thank you (casual)", "Sorry"],
+        correct: 2,
+        explanation: "고마워 是較親密的感謝語，用於朋友或晚輩之間。"
+      },
+      {
+        category: "禮貌與客氣",
+        question: "죄송합니다",
+        romanization: "joesonghamnida",
+        chinese: "對不起 / 不好意思",
+        options: ["Hello", "Thank you", "Sorry", "Goodbye"],
+        correct: 2,
+        explanation: "죄송합니다 是正式的道歉語，用於較嚴重的過錯或對長輩道歉。"
+      },
+      {
+        category: "禮貌與客氣",
+        question: "괜찮아요",
+        romanization: "gwaenchanayo",
+        chinese: "沒關係",
+        options: ["Thank you", "Sorry", "It's okay", "Goodbye"],
+        correct: 2,
+        explanation: "괜찮아요 表示「沒關係」、「不客氣」，常用於安慰對方或回應感謝。"
+      },
+      {
+        category: "告別與祝福",
+        question: "안녕히 가세요",
+        romanization: "annyeonghi gaseyo",
+        chinese: "再見（有人離開）",
+        options: ["Hello", "Goodbye (someone leaving)", "Good night", "How are you"],
+        correct: 1,
+        explanation: "안녕히 가세요 是對離開的人說的再見，意思是「請慢走」。"
+      },
+      {
+        category: "告別與祝福",
+        question: "안녕히 주무세요",
+        romanization: "annyeonghi jumuseyo",
+        chinese: "晚安（請休息）",
+        options: ["Good morning", "Goodbye", "Good night", "Good afternoon"],
+        correct: 2,
+        explanation: "안녕히 주무세요 是睡前說的晚安祝福語，用於就寢時。"
+      },
+      {
+        category: "告別與祝福",
+        question: "내일 봐요",
+        romanization: "naeil bwayo",
+        chinese: "明天見。",
+        options: ["See you tomorrow", "Goodbye", "Good night", "See you later"],
+        correct: 0,
+        explanation: "내일 봐요 是「明天見」的意思，是常見的告別語。"
+      },
+      {
+        category: "戀愛情境句",
+        question: "사랑해요",
+        romanization: "saranghaeyo",
+        chinese: "我愛你",
+        options: ["I like you", "I love you", "I miss you", "Goodbye"],
+        correct: 1,
+        explanation: "사랑해요 是「我愛你」的意思，是表達愛意的句子。"
+      },
+      {
+        category: "戀愛情境句",
+        question: "좋아합니다",
+        romanization: "joahamnida",
+        chinese: "我喜歡你。",
+        options: ["I like you", "I love you", "I miss you", "Goodbye"],
+        correct: 0,
+        explanation: "좋아합니다 是「喜歡」的意思，比 사랑해요 程度較輕，可用於表達喜歡某人或某物。"
+      },
+      {
+        category: "戀愛情境句",
+        question: "그리워요",
+        romanization: "geuriwoyo",
+        chinese: "我想你。",
+        options: ["I like you", "I love you", "I miss you", "Goodbye"],
+        correct: 2,
+        explanation: "그리워요 是「想念」的意思，用於表達對某人或某地的思念。"
+      },
+      {
+        category: "戀愛情境句",
+        question: "같이 영화 볼래요?",
+        romanization: "gachi yeonghwa bollaeyo?",
+        chinese: "要一起看電影嗎？",
+        options: ["Do you want to eat?", "Do you want to go out?", "Do you want to watch a movie together?", "Are you busy?"],
+        correct: 2,
+        explanation: "같이 영화 볼래요? 是邀請對方一起看電影的句子，是常見的約會邀請。"
+      },
+      {
+        category: "生活日常句",
+        question: "식사하셨어요?",
+        romanization: "siksahasyeosseoyo?",
+        chinese: "你吃了嗎？",
+        options: ["Are you hungry?", "Did you eat?", "Do you want to eat?", "What did you eat?"],
+        correct: 1,
+        explanation: "식사하셨어요? 是關心對方是否吃過飯的問候語，在韓國這是很常見的寒暄。"
+      },
+      {
+        category: "生活日常句",
+        question: "뭐 해?",
+        romanization: "mwo hae?",
+        chinese: "你在做什麼？",
+        options: ["Where are you?", "What are you doing?", "How are you?", "What did you eat?"],
+        correct: 1,
+        explanation: "뭐 해? 是詢問對方在做什麼的日常問句。"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+    let answered = false;
+    let timer = 15;
+    let timerInterval = null;
+    let startTime = null;
+    let correctCount = 0;
+    let wrongCount = 0;
+    let streak = 0;
+
+    function shuffleArray(array) {
+      const newArray = [...array];
+      for (let i = newArray.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+      }
+      return newArray;
+    }
+
+    let shuffledQuestions = [];
+
+    function initQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      correctCount = 0;
+      wrongCount = 0;
+      streak = 0;
+      startTime = Date.now();
+      shuffledQuestions = shuffleArray(questions).slice(0, 15);
+      
+      document.getElementById('score').textContent = '0';
+      document.getElementById('total').textContent = shuffledQuestions.length;
+      document.getElementById('results').classList.add('hidden');
+      document.getElementById('quizCard').classList.remove('hidden');
+      
+      showQuestion();
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      timer = 15;
+      document.getElementById('timer').textContent = timer;
+      document.getElementById('timer').classList.remove('timer-warning');
+      
+      timerInterval = setInterval(() => {
+        timer--;
+        document.getElementById('timer').textContent = timer;
+        
+        if (timer <= 5) {
+          document.getElementById('timer').classList.add('timer-warning');
+        }
+        
+        if (timer <= 0) {
+          clearInterval(timerInterval);
+          handleTimeout();
+        }
+      }, 1000);
+    }
+
+    function handleTimeout() {
+      if (answered) return;
+      answered = true;
+      
+      const q = shuffledQuestions[currentQuestion];
+      const buttons = document.querySelectorAll('.option-btn');
+      buttons[q.correct].classList.add('correct');
+      buttons.forEach(btn => btn.disabled = true);
+      
+      wrongCount++;
+      streak = 0;
+      updateStreak();
+      
+      showFeedback(false, q);
+    }
+
+    function showQuestion() {
+      const q = shuffledQuestions[currentQuestion];
+      answered = false;
+      
+      document.getElementById('quizCard').classList.remove('fade-in');
+      void document.getElementById('quizCard').offsetWidth;
+      document.getElementById('quizCard').classList.add('fade-in');
+      
+      document.getElementById('category').textContent = q.category;
+      document.getElementById('question').innerHTML = `${q.question}<div class="text-lg text-slate-400 mt-2">${q.romanization}</div>`;
+      document.getElementById('questionChinese').textContent = q.chinese;
+      
+      const optionsDiv = document.getElementById('options');
+      optionsDiv.innerHTML = '';
+      
+      const shuffledOptions = q.options.map((opt, idx) => ({ text: opt, originalIdx: idx }));
+      const shuffledThis = shuffleArray(shuffledOptions);
+      
+      shuffledThis.forEach((opt) => {
+        const btn = document.createElement('button');
+        btn.className = 'option-btn w-full p-5 rounded-2xl text-left text-lg flex justify-between items-center';
+        btn.innerHTML = `<span>${opt.text}</span><i class="fas fa-chevron-right text-slate-500 opacity-0 group-hover:opacity-100"></i>`;
+        btn.onclick = () => selectOption(opt.originalIdx, q.correct);
+        optionsDiv.appendChild(btn);
+      });
+      
+      document.getElementById('feedback').classList.add('hidden');
+      updateProgress();
+      startTimer();
+    }
+
+    function selectOption(selectedIdx, correctIdx) {
+      if (answered) return;
+      answered = true;
+      clearInterval(timerInterval);
+      
+      const q = shuffledQuestions[currentQuestion];
+      const buttons = document.querySelectorAll('.option-btn');
+      
+      if (selectedIdx === correctIdx) {
+        buttons.forEach((btn, idx) => {
+          if (btn.textContent.includes(q.options[correctIdx])) {
+            btn.classList.add('correct');
+          }
+        });
+        score++;
+        correctCount++;
+        streak++;
+        document.getElementById('score').textContent = score;
+        showFeedback(true, q);
+      } else {
+        buttons.forEach((btn, idx) => {
+          if (btn.textContent.includes(q.options[selectedIdx])) {
+            btn.classList.add('wrong');
+          }
+          if (btn.textContent.includes(q.options[correctIdx])) {
+            btn.classList.add('correct');
+          }
+        });
+        wrongCount++;
+        streak = 0;
+        showFeedback(false, q);
+      }
+      
+      buttons.forEach(btn => btn.disabled = true);
+      updateStreak();
+    }
+
+    function showFeedback(isCorrect, q) {
+      const feedbackDiv = document.getElementById('feedback');
+      feedbackDiv.classList.remove('hidden');
+      
+      if (isCorrect) {
+        document.getElementById('feedbackIcon').textContent = '✅';
+        document.getElementById('feedbackText').textContent = '正確！';
+        document.getElementById('feedbackText').className = 'text-2xl font-bold mb-2 text-green-400';
+      } else {
+        document.getElementById('feedbackIcon').textContent = '❌';
+        document.getElementById('feedbackText').textContent = '錯誤！';
+        document.getElementById('feedbackText').className = 'text-2xl font-bold mb-2 text-red-400';
+      }
+      
+      document.getElementById('feedbackAnswer').innerHTML = `正確答案：<span class="text-cyan-400 font-bold">${q.options[q.correct]}</span>`;
+      document.getElementById('explanation').innerHTML = `<i class="fas fa-lightbulb text-yellow-400 mr-2"></i>${q.explanation}`;
+    }
+
+    function updateStreak() {
+      const streakEl = document.getElementById('streak');
+      if (streak >= 2) {
+        streakEl.textContent = `🔥 連續 ${streak} 題正確！`;
+        streakEl.className = 'text-sm text-yellow-400 font-bold';
+      } else {
+        streakEl.textContent = '';
+      }
+    }
+
+    function updateProgress() {
+      const progress = ((currentQuestion) / shuffledQuestions.length) * 100;
+      document.getElementById('progressBar').style.width = progress + '%';
+      document.getElementById('progressText').textContent = `問題 ${currentQuestion + 1} / ${shuffledQuestions.length}`;
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < shuffledQuestions.length) {
+        showQuestion();
+      } else {
+        showResults();
+      }
+    }
+
+    function showResults() {
+      const elapsedTime = Math.round((Date.now() - startTime) / 1000);
+      const percentage = Math.round((score / shuffledQuestions.length) * 100);
+      
+      let message = '';
+      let emoji = '';
+      if (percentage >= 90) {
+        message = '🎉 太厲害了！你是韓文高手！';
+        emoji = '🏆';
+      } else if (percentage >= 70) {
+        message = '👏 做得好！繼續努力！';
+        emoji = '🌟';
+      } else if (percentage >= 50) {
+        message = '💪 不錯喔！再加油！';
+        emoji = '💕';
+      } else {
+        message = '📚 再加油！多看幾遍常用句！';
+        emoji = '📖';
+      }
+      
+      document.getElementById('quizCard').classList.add('hidden');
+      document.getElementById('results').classList.remove('hidden');
+      
+      document.getElementById('resultEmoji').textContent = emoji;
+      document.getElementById('finalScore').textContent = `${score} / ${shuffledQuestions.length}`;
+      document.getElementById('resultMessage').textContent = message;
+      document.getElementById('correctCount').textContent = correctCount;
+      document.getElementById('wrongCount').textContent = wrongCount;
+      document.getElementById('timeUsed').textContent = elapsedTime + 's';
+      
+      document.getElementById('progressBar').style.width = '100%';
+      document.getElementById('progressText').textContent = `完成！`;
+    }
+
+    function resetQuiz() {
+      clearInterval(timerInterval);
+      initQuiz();
+    }
+
+    initQuiz();
+  </script>
+</body>
+</html>
