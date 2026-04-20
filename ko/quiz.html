@@ -114,7 +114,7 @@
         <div class="text-xl">得分：<span id="score" class="text-3xl font-bold text-pink-400">0</span> / <span id="total">0</span></div>
         <div class="flex items-center gap-2">
           <i class="fas fa-clock text-cyan-400"></i>
-          <span id="timer" class="text-2xl font-bold text-cyan-400">15</span>
+          <span id="timer" class="text-2xl font-bold text-cyan-400">60</span>
           <span class="text-slate-400">秒</span>
         </div>
       </div>
@@ -143,7 +143,7 @@
       
       <div class="text-center mb-8">
         <div id="question" class="text-4xl font-bold mb-4 hangul">안녕하세요</div>
-        <div id="questionChinese" class="text-xl text-cyan-300">你好</div>
+        <div id="questionRoman" class="text-lg text-slate-400">annyeonghaseyo</div>
       </div>
       
       <div id="options" class="space-y-4">
@@ -195,186 +195,26 @@
 
   <script>
     const questions = [
-      {
-        category: "問候與開場",
-        question: "안녕하세요",
-        romanization: "annyeonghaseyo",
-        chinese: "你好",
-        options: ["Hello / Hi (polite)", "Goodbye", "Thank you", "Sorry"],
-        correct: 0,
-        explanation: "안녕하세요 (annyeonghaseyo) 是最常見的問候語，用於白天或一般場合的禮貌用法。"
-      },
-      {
-        category: "問候與開場",
-        question: "안녕",
-        romanization: "annyeong",
-        chinese: "嗨 / 你好 (親密)",
-        options: ["Hello (casual)", "Goodbye", "Thank you", "Sorry"],
-        correct: 0,
-        explanation: "안녕 (annyeong) 是較親密的問候語，只用於熟悉的朋友或晚輩。"
-      },
-      {
-        category: "問候與開場",
-        question: "잘 지내요?",
-        romanization: "jal jinaeyo?",
-        chinese: "你好嗎？ / 過得好嗎？",
-        options: ["What is your name?", "How have you been?", "Where are you from?", "What are you doing?"],
-        correct: 1,
-        explanation: "잘 지내요? (jal jinaeyo?) 是詢問對方過得好不好的問候語，是很常用的寒暄句。"
-      },
-      {
-        category: "自我介紹",
-        question: "제 이름은 [이름]이에요.",
-        romanization: "je ireumeun [ireum]ieyo",
-        chinese: "我的名字是[名字]。",
-        options: ["My name is...", "Nice to meet you", "How old are you?", "Where are you from?"],
-        correct: 0,
-        explanation: "제 이름은...이에요 是正式的自我介紹句型，用於介紹自己的名字。"
-      },
-      {
-        category: "自我介紹",
-        question: "만나서 반갑습니다.",
-        romanization: "mannaseo bangapseumnida",
-        chinese: "很高興認識你。",
-        options: ["Nice to meet you", "Goodbye", "Thank you", "See you later"],
-        correct: 0,
-        explanation: "만나서 반갑습니다 是第一次見面時說的話，表達很高興認識對方。"
-      },
-      {
-        category: "基本回應",
-        question: "네",
-        romanization: "ne",
-        chinese: "是 / 是的",
-        options: ["Yes", "No", "Maybe", "Sorry"],
-        correct: 0,
-        explanation: "네 (ne) 是表示肯定的回答，相當於英文的 Yes。"
-      },
-      {
-        category: "基本回應",
-        question: "아니요",
-        romanization: "aniyo",
-        chinese: "不是 / 不是的",
-        options: ["Yes", "No", "Okay", "Hello"],
-        correct: 1,
-        explanation: "아니요 (aniyo) 是表示否定的回答，相當於英文的 No。"
-      },
-      {
-        category: "基本回應",
-        question: "감사합니다",
-        romanization: "gamsahamnida",
-        chinese: "謝謝您",
-        options: ["Hello", "Goodbye", "Thank you", "Sorry"],
-        correct: 2,
-        explanation: "감사합니다 是正式的感謝語，用於對長輩或正式場合。"
-      },
-      {
-        category: "基本回應",
-        question: "고마워",
-        romanization: "gomawo",
-        chinese: "謝啦",
-        options: ["Hello", "Goodbye", "Thank you (casual)", "Sorry"],
-        correct: 2,
-        explanation: "고마워 是較親密的感謝語，用於朋友或晚輩之間。"
-      },
-      {
-        category: "禮貌與客氣",
-        question: "죄송합니다",
-        romanization: "joesonghamnida",
-        chinese: "對不起 / 不好意思",
-        options: ["Hello", "Thank you", "Sorry", "Goodbye"],
-        correct: 2,
-        explanation: "죄송합니다 是正式的道歉語，用於較嚴重的過錯或對長輩道歉。"
-      },
-      {
-        category: "禮貌與客氣",
-        question: "괜찮아요",
-        romanization: "gwaenchanayo",
-        chinese: "沒關係",
-        options: ["Thank you", "Sorry", "It's okay", "Goodbye"],
-        correct: 2,
-        explanation: "괜찮아요 表示「沒關係」、「不客氣」，常用於安慰對方或回應感謝。"
-      },
-      {
-        category: "告別與祝福",
-        question: "안녕히 가세요",
-        romanization: "annyeonghi gaseyo",
-        chinese: "再見（有人離開）",
-        options: ["Hello", "Goodbye (someone leaving)", "Good night", "How are you"],
-        correct: 1,
-        explanation: "안녕히 가세요 是對離開的人說的再見，意思是「請慢走」。"
-      },
-      {
-        category: "告別與祝福",
-        question: "안녕히 주무세요",
-        romanization: "annyeonghi jumuseyo",
-        chinese: "晚安（請休息）",
-        options: ["Good morning", "Goodbye", "Good night", "Good afternoon"],
-        correct: 2,
-        explanation: "안녕히 주무세요 是睡前說的晚安祝福語，用於就寢時。"
-      },
-      {
-        category: "告別與祝福",
-        question: "내일 봐요",
-        romanization: "naeil bwayo",
-        chinese: "明天見。",
-        options: ["See you tomorrow", "Goodbye", "Good night", "See you later"],
-        correct: 0,
-        explanation: "내일 봐요 是「明天見」的意思，是常見的告別語。"
-      },
-      {
-        category: "戀愛情境句",
-        question: "사랑해요",
-        romanization: "saranghaeyo",
-        chinese: "我愛你",
-        options: ["I like you", "I love you", "I miss you", "Goodbye"],
-        correct: 1,
-        explanation: "사랑해요 是「我愛你」的意思，是表達愛意的句子。"
-      },
-      {
-        category: "戀愛情境句",
-        question: "좋아합니다",
-        romanization: "joahamnida",
-        chinese: "我喜歡你。",
-        options: ["I like you", "I love you", "I miss you", "Goodbye"],
-        correct: 0,
-        explanation: "좋아합니다 是「喜歡」的意思，比 사랑해요 程度較輕，可用於表達喜歡某人或某物。"
-      },
-      {
-        category: "戀愛情境句",
-        question: "그리워요",
-        romanization: "geuriwoyo",
-        chinese: "我想你。",
-        options: ["I like you", "I love you", "I miss you", "Goodbye"],
-        correct: 2,
-        explanation: "그리워요 是「想念」的意思，用於表達對某人或某地的思念。"
-      },
-      {
-        category: "戀愛情境句",
-        question: "같이 영화 볼래요?",
-        romanization: "gachi yeonghwa bollaeyo?",
-        chinese: "要一起看電影嗎？",
-        options: ["Do you want to eat?", "Do you want to go out?", "Do you want to watch a movie together?", "Are you busy?"],
-        correct: 2,
-        explanation: "같이 영화 볼래요? 是邀請對方一起看電影的句子，是常見的約會邀請。"
-      },
-      {
-        category: "生活日常句",
-        question: "식사하셨어요?",
-        romanization: "siksahasyeosseoyo?",
-        chinese: "你吃了嗎？",
-        options: ["Are you hungry?", "Did you eat?", "Do you want to eat?", "What did you eat?"],
-        correct: 1,
-        explanation: "식사하셨어요? 是關心對方是否吃過飯的問候語，在韓國這是很常見的寒暄。"
-      },
-      {
-        category: "生活日常句",
-        question: "뭐 해?",
-        romanization: "mwo hae?",
-        chinese: "你在做什麼？",
-        options: ["Where are you?", "What are you doing?", "How are you?", "What did you eat?"],
-        correct: 1,
-        explanation: "뭐 해? 是詢問對方在做什麼的日常問句。"
-      }
+      { category: "問候與開場", question: "안녕하세요", romanization: "annyeonghaseyo", options: ["你好", "再見", "謝謝", "對不起"], correct: 0, explanation: "안녕하세요 (annyeonghaseyo) 是最常見的問候語，用於白天或一般場合的禮貌用法。" },
+      { category: "問候與開場", question: "안녕", romanization: "annyeong", options: ["你好", "再見", "謝謝", "對不起"], correct: 0, explanation: "안녕 (annyeong) 是較親密的問候語，只用於熟悉的朋友或晚輩。" },
+      { category: "問候與開場", question: "잘 지내요?", romanization: "jal jinaeyo?", options: ["你叫什麼名字？", "你過得好嗎？", "你來自哪裡？", "你在做什麼？"], correct: 1, explanation: "잘 지내요? (jal jinaeyo?) 是詢問對方過得好不好的問候語，是很常用的寒暄句。" },
+      { category: "自我介紹", question: "제 이름은 [이름]이에요.", romanization: "je ireumeun [ireum]ieyo", options: ["我叫...", "很高興認識你", "你幾歲？", "你來自哪裡？"], correct: 0, explanation: "제 이름은...이에요 是正式的自我介紹句型，用於介紹自己的名字。" },
+      { category: "自我介紹", question: "만나서 반갑습니다.", romanization: "mannaseo bangapseumnida", options: ["很高興認識你", "再見", "謝謝", "待會見"], correct: 0, explanation: "만나서 반갑습니다 是第一次見面時說的話，表達很高興認識對方。" },
+      { category: "基本回應", question: "네", romanization: "ne", options: ["是", "不是", "可能", "對不起"], correct: 0, explanation: "네 (ne) 是表示肯定的回答，相當於英文的 Yes。" },
+      { category: "基本回應", question: "아니요", romanization: "aniyo", options: ["是", "不是", "好吧", "你好"], correct: 1, explanation: "아니요 (aniyo) 是表示否定的回答，相當於英文的 No。" },
+      { category: "基本回應", question: "감사합니다", romanization: "gamsahamnida", options: ["你好", "再見", "謝謝", "對不起"], correct: 2, explanation: "감사합니다 是正式的感謝語，用於對長輩或正式場合。" },
+      { category: "基本回應", question: "고마워", romanization: "gomawo", options: ["你好", "再見", "謝謝", "對不起"], correct: 2, explanation: "고마워 是較親密的感謝語，用於朋���或���輩之間。" },
+      { category: "禮貌與客氣", question: "죄송합니다", romanization: "joesonghamnida", options: ["你好", "謝謝", "對不起", "再見"], correct: 2, explanation: "죄송합니다 是正式的道歉語，用於較嚴重的過錯或對長輩道歉。" },
+      { category: "禮貌與客氣", question: "괜찮아요", romanization: "gwaenchanayo", options: ["謝謝", "對不起", "沒關係", "再見"], correct: 2, explanation: "괜찮아요 表示「沒關係」「不客氣」，常用於安慰對方或回應感謝。" },
+      { category: "告別與祝福", question: "안녕히 가세요", romanization: "annyeonghi gaseyo", options: ["你好", "再見", "晚安", "你好嗎？"], correct: 1, explanation: "안녕히 가세요 是對離開的人說的再見，意思是「請慢走」。" },
+      { category: "告別與祝福", question: "안녕히 주무세요", romanization: "annyeonghi jumuseyo", options: ["早安", "再見", "晚安", "下午好"], correct: 2, explanation: "안녕히 주무세요 是睡前說的晚安祝福語，用於就寢時。" },
+      { category: "告別與祝福", question: "내일 봐요", romanization: "naeil bwayo", options: ["明天見", "再見", "晚安", "待會見"], correct: 0, explanation: "내일 봐요 是「明天見」的意思，是常見的告別語。" },
+      { category: "戀愛情境句", question: "사랑해요", romanization: "saranghaeyo", options: ["我喜歡你", "我愛你", "我想你", "再見"], correct: 1, explanation: "사랑해요 是「我愛你」的意思，是表達愛意的句子。" },
+      { category: "戀愛情境句", question: "좋아합니다", romanization: "joahamnida", options: ["我喜歡你", "我愛你", "我想你", "再見"], correct: 0, explanation: "좋아합니다 是「喜歡」的意思，可用於���達喜歡某人或某物。" },
+      { category: "戀愛情境句", question: "그리워요", romanization: "geuriwoyo", options: ["我喜歡你", "我愛你", "我想你", "再見"], correct: 2, explanation: "그리워요 是「想念」的意思，用於表達對某人或某地的思念。" },
+      { category: "戀愛情境句", question: "같이 영화 볼래요?", romanization: "gachi yeonghwa bollaeyo?", options: ["一起去吃飯？", "一起出去？", "一起看電影？", "你很忙？"], correct: 2, explanation: "같이 영화 볼래요? 是邀請對方一起看電影的句子，是常見的約會邀請。" },
+      { category: "生活日常句", question: "식사하셨어요?", romanization: "siksahasyeosseoyo?", options: ["你餓了？", "你吃了？", "你想吃？", "你吃了什麼？"], correct: 1, explanation: "식사하셨어요? 是關心對方是否吃過飯的問候語，在韓國這是很常見的寒暄。" },
+      { category: "生活日常句", question: "뭐 해?", romanization: "mwo hae?", options: ["你在哪裡？", "你在做什麼？", "你好嗎？", "你吃了什麼？"], correct: 1, explanation: "뭐 해? 是詢問對方在做什麼的日常問句。" }
     ];
 
     let currentQuestion = 0;
@@ -461,8 +301,8 @@
       document.getElementById('quizCard').classList.add('fade-in');
       
       document.getElementById('category').textContent = q.category;
-      document.getElementById('question').innerHTML = `${q.question}<div class="text-lg text-slate-400 mt-2">${q.romanization}</div>`;
-      document.getElementById('questionChinese').textContent = q.chinese;
+      document.getElementById('question').innerHTML = q.question;
+      document.getElementById('questionRoman').textContent = q.romanization;
       
       const optionsDiv = document.getElementById('options');
       optionsDiv.innerHTML = '';
