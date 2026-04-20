@@ -200,6 +200,46 @@
     </div>
   </div>
 
+  <!-- Listening Exercise -->
+  <div class="mt-16">
+    <div class="text-center mb-8">
+      <h2 class="text-4xl font-bold neon-pink mb-4">聽力練習</h2>
+      <p class="text-xl text-cyan-300">聽韓文句子，點擊播放</p>
+    </div>
+
+    <div class="card p-8 rounded-3xl mb-6">
+      <button onclick="playListening()" class="w-full py-6 rounded-2xl bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 hover:opacity-90 transition-opacity mb-6">
+        <i class="fas fa-volume-up text-2xl mr-3"></i><span class="text-2xl font-bold">播放下一句</span>
+      </button>
+      
+      <div class="text-center mb-4">
+        <div id="listeningKorean" class="text-4xl font-bold hangul mb-2">안녕하세요</div>
+        <div id="listeningRoman" class="text-lg text-slate-400">annyeonghaseyo</div>
+      </div>
+      
+      <div class="flex justify-center gap-4 mb-6">
+        <button onclick="toggleTranscript()" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+          <i class="fas fa-text-width mr-2"></i>顯示中文
+        </button>
+        <button onclick="repeatAudio()" class="px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+          <i class="fas fa-redo mr-2"></i>重播
+        </button>
+      </div>
+      
+      <div id="transcript" class="hidden text-center p-6 bg-black/30 rounded-2xl">
+        <div id="transcriptChinese" class="text-2xl text-cyan-400 font-bold">你好</div>
+        <div id="transcriptExplanation" class="text-slate-400 mt-2"></div>
+      </div>
+      
+      <div class="mt-6">
+        <div class="text-center text-sm text-slate-400 mb-2">單字Highlight</div>
+        <div id="wordHighlight" class="flex flex-wrap justify-center gap-2 text-xl">
+          <span class="word text-slate-300 p-2">안녕하세요</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <footer class="bg-black py-12 text-center text-slate-500">
     <p>Talki-Ko • 做練習</p>
     <p class="mt-1">Louie Hei Laam (Chloe) • 2026</p>
@@ -466,6 +506,103 @@
       document.getElementById('quizCard').classList.add('hidden');
       document.getElementById('startScreen').classList.remove('hidden');
     }
+
+    // Listening Exercise
+    const listeningData = [
+      { korean: "안녕하세요", romanization: "annyeonghaseyo", chinese: "你好", explanation: "最常見的問候語，用於白天或一般場合的禮貌用法。" },
+      { korean: "안녕", romanization: "annyeong", chinese: "嗨 / 你好", explanation: "較親密的問候語，只用於熟悉的朋友或晚輩。" },
+      { korean: "잘 지내요?", romanization: "jal jinaeyo?", chinese: "你好嗎？", explanation: "詢問對方過得好不好的問候語。" },
+      { korean: "네", romanization: "ne", chinese: "是", explanation: "表示肯定的回答。" },
+      { korean: "아니요", romanization: "aniyo", chinese: "不是", explanation: "表示否定的回答。" },
+      { korean: "감사합니다", romanization: "gamsahamnida", chinese: "謝謝您", explanation: "正式的感謝語，用於對長輩或正式場合。" },
+      { korean: "죄송합니다", romanization: "joesonghamnida", chinese: "對不起", explanation: "正式的道歉語。" },
+      { korean: "괜찮아요", romanization: "gwaenchanayo", chinese: "沒關係", explanation: "表示沒關係，常用於安慰對方。" },
+      { korean: "사랑해요", romanization: "saranghaeyo", chinese: "我愛你", explanation: "表達愛意的句子。" },
+      { korean: "좋아합니다", romanization: "joahamnida", chinese: "我喜歡你", explanation: "「喜歡」的意思，可用於表達喜歡某人。" },
+      { korean: "안녕히 가세요", romanization: "annyeonghi gaseyo", chinese: "再見", explanation: "對離開的人說的再見。" },
+      { korean: "안녕히 주무세요", romanization: "annyeonghi jumuseyo", chinese: "晚安", explanation: "睡前說的晚安祝福語。" },
+      { korean: "내일 봐요", romanization: "naeil bwayo", chinese: "明天見", explanation: "「明天見」的意思。" },
+      { korean: "만나서 반갑습니다", romanization: "mannaseo bangapseumnida", chinese: "很高興認識你", explanation: "第一次見面時說的話。" },
+      { korean: "식사하셨어요?", romanization: "siksahasyeosseoyo?", chinese: "你吃了嗎？", explanation: "關心對方是否吃過飯。" }
+    ];
+
+    let currentListeningIndex = 0;
+
+    function playListening() {
+      const item = listeningData[currentListeningIndex];
+      playAudio(item.korean);
+      
+      document.getElementById('listeningKorean').textContent = item.korean;
+      document.getElementById('listeningRoman').textContent = item.romanization;
+      document.getElementById('transcriptChinese').textContent = item.chinese;
+      document.getElementById('transcriptExplanation').textContent = item.explanation;
+      
+      const words = item.korean.split('');
+      let wordHtml = '';
+      words.forEach((word, idx) => {
+        wordHtml += `<span class="word cursor-pointer hover:text-pink-400 p-1 transition-colors" onclick="highlightWord(this)">${word}</span>`;
+      });
+      document.getElementById('wordHighlight').innerHTML = wordHtml;
+      
+      currentListeningIndex = (currentListeningIndex + 1) % listeningData.length;
+    }
+
+    function repeatAudio() {
+      const korean = document.getElementById('listeningKorean').textContent;
+      if (korean) {
+        playAudio(korean);
+      }
+    }
+
+    function playAudio(text) {
+      // Try Web Speech API first
+      if ('speechSynthesis' in window) {
+        speechSynthesis.cancel();
+        const utterance = new SpeechSynthesisUtterance(text);
+        utterance.lang = 'ko-KR';
+        utterance.rate = 0.7;
+        
+        // Try to get a Korean voice
+        const voices = speechSynthesis.getVoices();
+        const koreanVoice = voices.find(v => v.lang.includes('ko')) || voices[0];
+        if (koreanVoice) utterance.voice = koreanVoice;
+        
+        utterance.onend = () => console.log('Audio played successfully');
+        utterance.onerror = (e) => console.log('Speech synthesis error:', e);
+        
+        speechSynthesis.speak(utterance);
+      } else {
+        alert('您的瀏覽器不支持語音播放功能');
+      }
+    }
+
+    function toggleTranscript() {
+      document.getElementById('transcript').classList.toggle('hidden');
+    }
+
+    function highlightWord(el) {
+      el.classList.toggle('text-pink-400');
+      el.classList.toggle('bg-pink-500/30');
+      el.classList.toggle('rounded');
+    }
+
+    // Initialize first listening card
+    function initListening() {
+      const item = listeningData[0];
+      document.getElementById('listeningKorean').textContent = item.korean;
+      document.getElementById('listeningRoman').textContent = item.romanization;
+      document.getElementById('transcriptChinese').textContent = item.chinese;
+      document.getElementById('transcriptExplanation').textContent = item.explanation;
+      
+      const words = item.korean.split('');
+      let wordHtml = '';
+      words.forEach((word) => {
+        wordHtml += `<span class="word cursor-pointer hover:text-pink-400 p-1 transition-colors" onclick="highlightWord(this)">${word}</span>`;
+      });
+      document.getElementById('wordHighlight').innerHTML = wordHtml;
+    }
+    
+    initListening();
   </script>
 </body>
 </html>
