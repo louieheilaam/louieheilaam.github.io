@@ -561,7 +561,7 @@
     }
 
     function nextListening() {
-      currentListeningIndex = (currentListeningIndex + 1) % listeningData.length;
+      currentListeningIndex = Math.floor(Math.random() * listeningData.length);
       const item = listeningData[currentListeningIndex];
       
       document.getElementById('listeningKorean').textContent = item.korean;
@@ -624,7 +624,8 @@
 
     // Initialize first listening card
     function initListening() {
-      const item = listeningData[0];
+      currentListeningIndex = Math.floor(Math.random() * listeningData.length);
+      const item = listeningData[currentListeningIndex];
       document.getElementById('listeningKorean').textContent = item.korean;
       document.getElementById('listeningRoman').textContent = item.romanization + ` (${item.category})`;
       document.getElementById('transcriptChinese').textContent = item.chinese;
